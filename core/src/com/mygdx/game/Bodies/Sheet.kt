@@ -26,22 +26,6 @@ class Sheet(name : String, player : Int): Table(){
         add(stageLayout.apply {
             debugAll()
             for (j in 0 until AssemblingScreenCoords.FIELD_HEIGHT){
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 row().let {
                     for (i in 0 until AssemblingScreenCoords.FIELD_WIDTH) {
                         if (ship[i][j] != 1000) {

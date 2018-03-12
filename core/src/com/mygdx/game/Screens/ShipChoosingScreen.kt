@@ -23,7 +23,6 @@ import com.mygdx.game.MyGdxGame.Companion.skin
 class ShipChoosingScreen(private val game: Game) : Screen {
 
     private val stage: Stage = Stage(ScreenViewport())
-    private var cnt = 0
     var p1_ship = setPrimaryShip()
     var p2_ship = setPrimaryShip()
     var p1_inventory = setPrimaryInventory()
@@ -91,9 +90,8 @@ class ShipChoosingScreen(private val game: Game) : Screen {
 
         container.addActor(blueplanet)
         container.addActor(redplanet)
-        /*var sheet = Sheet("balcon",1)
-        sheet.setPosition(0.toFloat(), SCREEN_HEIGHT_F*3/4)
-        container.addActor(sheet)*/
+        var sheet = Sheet("balcon",1)
+        container.add(sheet).fill().width(BLOCK_SIZE*8).height(BLOCK_SIZE*6.5f)
 
         val playButton = TextButton("Start!", MyGdxGame.skin)
 
