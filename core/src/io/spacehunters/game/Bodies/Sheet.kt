@@ -11,20 +11,21 @@ import io.spacehunters.game.Extra.ItemID
 import io.spacehunters.game.MyGdxGame
 
 class Sheet(name : String, player : Int): Table(){
-    private var ship = Array(AssemblingScreenCoords.FIELD_WIDTH) { IntArray(AssemblingScreenCoords.FIELD_HEIGHT) }
-    private var inventory = IntArray(ItemID.NUMBER_OF_ITEMS)
-    private var prefSize = AssemblingScreenCoords.BLOCK_SIZE
+    var ship = Array(AssemblingScreenCoords.FIELD_WIDTH) { IntArray(AssemblingScreenCoords.FIELD_HEIGHT) }
+    var inventory = IntArray(ItemID.NUMBER_OF_ITEMS)
+    private var prefSize = AssemblingScreenCoords.BLOCK_SIZE/2
     private var SheetName = ""
     private var player : Int = 0
+    private var backuntouched = TextureRegionDrawable(TextureRegion(Texture("background.png")))
+    private var backtouched = TextureRegionDrawable(TextureRegion(Texture("background_red_space.png")))
     init{
         ship = getShip(name)
         inventory = getInventory(name)
         SheetName = name
         this.player = player
         val stageLayout = Table()
-        background = TextureRegionDrawable(TextureRegion(Texture("background.png")))
+        background = backuntouched
         add(stageLayout.apply {
-            debugAll()
             for (j in 0 until AssemblingScreenCoords.FIELD_HEIGHT){
                 row().let {
                     for (i in 0 until AssemblingScreenCoords.FIELD_WIDTH) {
@@ -60,6 +61,14 @@ class Sheet(name : String, player : Int): Table(){
             ItemID.TURBINE -> 565 * prefSize / 345
             else -> prefSize
         }
+    }
+
+    fun changeBacktoTouched(){
+        background = backtouched
+    }
+
+    fun changeBacktoUntouched(){
+        background = backuntouched
     }
 
     private fun getBHeight(i: Int): Float {
@@ -100,7 +109,7 @@ class Sheet(name : String, player : Int): Table(){
 
     private fun getInventory(name: String):IntArray{
         return when (name){
-            "balcon" -> intArrayOf(8,4,0,0,4,2,0,2,0)
+            "balcon" -> intArrayOf(7,4,0,0,4,2,0,2,0)
             else -> intArrayOf()
         }
     }

@@ -40,6 +40,128 @@ class ShipChoosingScreen(private val game: Game) : Screen {
 
         })
 
+        val table1 = Table()
+        table1.width = (SCREEN_WIDTH/2f - BLOCK_SIZE/2)
+        table1.height = (SCREEN_HEIGHT_F - BLOCK_SIZE)
+        table1.setPosition(BLOCK_SIZE/4f, BLOCK_SIZE/2f)
+        table1.apply{
+            row().let{
+                val b = TextButton("x",MyGdxGame.skin)
+                b.addListener(object : InputListener() {
+                    override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+                        table1.remove()
+                    }
+
+                    override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                        return true
+                    }
+                })
+                add(b).width(BLOCK_SIZE/3).right()
+            }
+            row().let{
+                val table = Table()
+                var pane = ScrollPane(table, MyGdxGame.skin)
+                table.apply{
+                    defaults().width(BLOCK_SIZE*4f).height(BLOCK_SIZE*3.75f).padRight(BLOCK_SIZE/2).padBottom(BLOCK_SIZE/4)
+                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
+                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
+                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
+                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)))
+
+                    for (i in 0 until sheetArr.size){
+                        row().let{
+                            for (j in 0 until sheetArr[0].size) {
+                                sheetArr[i][j].addListener(object : InputListener() {
+                                    override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+                                    }
+
+                                    override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                                        for (k in 0 until sheetArr.size){
+                                            for (m in 0 until sheetArr[0].size){
+                                                if ((i==k)&&(j==m)){
+                                                    sheetArr[k][m].changeBacktoTouched()
+                                                    p1_ship = sheetArr[k][m].ship
+                                                    p1_inventory = sheetArr[k][m].inventory
+                                                }
+                                                else {
+                                                    sheetArr[k][m].changeBacktoUntouched()
+                                                }
+                                            }
+                                        }
+
+                                        return true
+                                    }
+                                })
+                                add(sheetArr[i][j])
+                            }
+                        }
+                    }
+                }
+                add(pane).fill()
+            }
+        }
+
+        val table2 = Table()
+        table2.width = (SCREEN_WIDTH/2f - BLOCK_SIZE/2)
+        table2.height = (SCREEN_HEIGHT_F - BLOCK_SIZE)
+        table2.setPosition(SCREEN_WIDTH-table2.width-BLOCK_SIZE/4f, BLOCK_SIZE/2f)
+        table2.apply{
+            row().let{
+                val b = TextButton("x",MyGdxGame.skin)
+                b.addListener(object : InputListener() {
+                    override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+                        table2.remove()
+                    }
+
+                    override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                        return true
+                    }
+                })
+                add(b).width(BLOCK_SIZE/3).right()
+            }
+            row().let{
+                val table = Table()
+                var pane = ScrollPane(table, MyGdxGame.skin)
+                table.apply{
+                    defaults().width(BLOCK_SIZE*4f).height(BLOCK_SIZE*3.75f).padRight(BLOCK_SIZE/2).padBottom(BLOCK_SIZE/4)
+                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
+                            arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
+                            arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
+                            arrayOf(Sheet("balcon",2), Sheet("balcon",2)))
+
+                    for (i in 0 until sheetArr.size){
+                        row().let{
+                            for (j in 0 until sheetArr[0].size) {
+                                sheetArr[i][j].addListener(object : InputListener() {
+                                    override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+                                    }
+
+                                    override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                                        for (k in 0 until sheetArr.size){
+                                            for (m in 0 until sheetArr[0].size){
+                                                if ((i==k)&&(j==m)){
+                                                    sheetArr[k][m].changeBacktoTouched()
+                                                    p2_ship = sheetArr[k][m].ship
+                                                    p2_inventory = sheetArr[k][m].inventory
+                                                }
+                                                else {
+                                                    sheetArr[k][m].changeBacktoUntouched()
+                                                }
+                                            }
+                                        }
+
+                                        return true
+                                    }
+                                })
+                                add(sheetArr[i][j])
+                            }
+                        }
+                    }
+                }
+                add(pane).fill()
+            }
+        }
+
         val halfsize: Float
         if (SCREEN_HEIGHT > SCREEN_WIDTH/2)
                     halfsize = SCREEN_WIDTH/2.toFloat()
@@ -60,6 +182,11 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                 if (Math.sqrt(((x-Fx)*(x-Fx)+(y-Fy)*(y-Fy)).toDouble())<=radius){
                     game.screen = Menu(game, getMe(), 1, p1_ship, p1_inventory)
                 }
+
+                if (Math.sqrt(((x-Sx)*(x-Sx)+(y-Sy)*(y-Sy)).toDouble())<=radius){
+                    container.addActor(table1)
+                }
+
             }
 
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
@@ -81,6 +208,9 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                 if (Math.sqrt(((x-Fx)*(x-Fx)+(y-Fy)*(y-Fy)).toDouble())<=radius){
                     game.screen = Menu(game,getMe(), 2, p2_ship, p2_inventory)
                 }
+                if (Math.sqrt(((x-Sx)*(x-Sx)+(y-Sy)*(y-Sy)).toDouble())<=radius){
+                    container.addActor(table2)
+                }
             }
 
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
@@ -90,8 +220,9 @@ class ShipChoosingScreen(private val game: Game) : Screen {
 
         container.addActor(blueplanet)
         container.addActor(redplanet)
-        var sheet = Sheet("balcon",1)
-        container.add(sheet).fill().width(BLOCK_SIZE*8).height(BLOCK_SIZE*6.5f)
+
+        /*var sheet = Sheet("balcon",1)
+        container.add(sheet).fill().width(BLOCK_SIZE*8).height(BLOCK_SIZE*6.5f)*/
 
         val playButton = TextButton("Start!", MyGdxGame.skin)
 
@@ -120,6 +251,7 @@ class ShipChoosingScreen(private val game: Game) : Screen {
         })
 
         container.addActor(playButton)
+
 
 
         /*val table = Table()
