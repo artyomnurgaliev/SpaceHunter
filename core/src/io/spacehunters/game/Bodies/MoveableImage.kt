@@ -26,6 +26,7 @@ class MoveableImage(private val startPosX: Float, private val startPosY: Float, 
         yinTable = NULL
         this.x = startPosX
         this.y = startPosY
+        this.setBounds(x,y,width,height)
         if (number != TURBINE)
             this.setOrigin(BLOCK_SIZE / 2, height / 2)
         else

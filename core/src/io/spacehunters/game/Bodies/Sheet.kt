@@ -7,19 +7,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import io.spacehunters.game.Extra.AssemblingScreenCoords
+import io.spacehunters.game.Extra.AssemblingScreenCoords.blocksize
 import io.spacehunters.game.Extra.ItemID
+import io.spacehunters.game.Extra.Sheets
 import io.spacehunters.game.MyGdxGame
 
-class Sheet(name : String, player : Int): Table(){
+class Sheet(name : String, player : Int, sheets : Sheets): Table(){
     var ship = Array(AssemblingScreenCoords.FIELD_WIDTH) { IntArray(AssemblingScreenCoords.FIELD_HEIGHT) }
     var inventory = IntArray(ItemID.NUMBER_OF_ITEMS)
-    private var prefSize = AssemblingScreenCoords.BLOCK_SIZE/2
+    private var prefSize = blocksize/2
     private var SheetName = ""
     private var player : Int = 0
-    private var backuntouched = TextureRegionDrawable(TextureRegion(Texture("background.png")))
-    private var backtouched = TextureRegionDrawable(TextureRegion(Texture("background_red_space.png")))
+    private var backuntouched : TextureRegionDrawable
+    private var backtouched : TextureRegionDrawable
+    private var sheets : Sheets
     init{
+        this.sheets = sheets
         ship = getShip(name)
+        val a = Math.random()*3
+        var b = 0
+        if (a<1) b = 1
+        if ((a>=1)&&(a<2)) b = 2
+        if ((a>=2)&&(a<=3)) b = 3
+        backuntouched =  getSheet(b)
+        backtouched = getSheet(b*10+player)
         inventory = getInventory(name)
         SheetName = name
         this.player = player
@@ -54,6 +65,22 @@ class Sheet(name : String, player : Int): Table(){
         }
 
     }
+    private fun getSheet(b : Int):TextureRegionDrawable {
+        return when (b){
+            1 -> sheets.sheet1
+            2 -> sheets.sheet2
+            3 -> sheets.sheet3
+            11 -> sheets.sheet11
+            12 -> sheets.sheet12
+            21 -> sheets.sheet21
+            22 -> sheets.sheet22
+            31 -> sheets.sheet31
+            32 -> sheets.sheet32
+            else -> sheets.sheet1
+        }
+
+    }
+
     private fun getBWidth(i: Int): Float {
         return when (i%10) {
             ItemID.STEEL_GUN -> 765 * prefSize / 345

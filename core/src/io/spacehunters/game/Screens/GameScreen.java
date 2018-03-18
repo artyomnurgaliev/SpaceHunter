@@ -475,7 +475,7 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
 
         }
     private void generateObstacles(){
-       String[] obstacleNames = new String[]{"obstacle1","obstacle2","obstacle3"};
+       String[] obstacleNames = new String[]{"obstacle1","obstacle2","obstacle3","boxobstacle","boxobstacle2"};
        for (int i=0;i<obstacleNames.length;i++){
            String name  = obstacleNames[i];
            this.obstacleNames[i] = name;
@@ -662,7 +662,7 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
         }
 
 
-        boolean[] pressedButtons = pressedButtons(readTouchPositions());
+        boolean[] pressedButtons = res;
 
         if (pressedButtons[BTN_P1_LEFTTURBINE])
             if (p1_turb1_I != -1)
@@ -965,8 +965,22 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
         return false;
     }
 
+    boolean[] res = new boolean[6];
+
     @Override
     public boolean touchDown(int x, int y, int pointer, int button) {
+            if (isInCircle(x, y, (1 + BUTTON_RADIUS)*UNIT_SIZE, (HEIGHT_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+                res[BTN_P1_RIGHTTURBINE] = true;
+            if (isInCircle(x, y, (1 + BUTTON_RADIUS)*UNIT_SIZE, (HEIGHT_IN_UNITS / 2)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+                res[BTN_P1_GUN] = true;
+            if (isInCircle(x, y, (1 + BUTTON_RADIUS)*UNIT_SIZE, (1 + BUTTON_RADIUS)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+                res[BTN_P1_LEFTTURBINE] = true;
+            if (isInCircle(x, y, (WIDTH_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (1 + BUTTON_RADIUS)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+                res[BTN_P2_RIGHTTURBINE] = true;
+            if (isInCircle(x, y, (WIDTH_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (HEIGHT_IN_UNITS / 2)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+                res[BTN_P2_GUN] = true;
+            if (isInCircle(x, y, (WIDTH_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (HEIGHT_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+                res[BTN_P2_LEFTTURBINE] = true;
         return false;
     }
 
@@ -996,6 +1010,21 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                 break;
 
         }
+        int x = screenX;
+        int y = screenY;
+        if (isInCircle(x, y, (1 + BUTTON_RADIUS)*UNIT_SIZE, (HEIGHT_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+            res[BTN_P1_RIGHTTURBINE] = false;
+        if (isInCircle(x, y, (1 + BUTTON_RADIUS)*UNIT_SIZE, (HEIGHT_IN_UNITS / 2)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+            res[BTN_P1_GUN] = false;
+        if (isInCircle(x, y, (1 + BUTTON_RADIUS)*UNIT_SIZE, (1 + BUTTON_RADIUS)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+            res[BTN_P1_LEFTTURBINE] = false;
+        if (isInCircle(x, y, (WIDTH_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (1 + BUTTON_RADIUS)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+            res[BTN_P2_RIGHTTURBINE] = false;
+        if (isInCircle(x, y, (WIDTH_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (HEIGHT_IN_UNITS / 2)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+            res[BTN_P2_GUN] = false;
+        if (isInCircle(x, y, (WIDTH_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (HEIGHT_IN_UNITS - 1 - BUTTON_RADIUS)*UNIT_SIZE, (BUTTON_RADIUS + 0.8f)*UNIT_SIZE))
+            res[BTN_P2_LEFTTURBINE] = false;
+
         return false;
     }
 
@@ -1109,16 +1138,18 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
     }
 
 
-    private static ArrayList<Integer> readTouchPositions() {
+   /* private static ArrayList<Integer> readTouchPositions() {
         int cnt = 0;
         while (Gdx.input.isTouched(cnt)) cnt++;
         ArrayList<Integer> res = new ArrayList<Integer>();
         for (int i = 0; i < cnt; i++) {
             res.add(Gdx.input.getX(i));
             res.add(SCREEN_HEIGHT - Gdx.input.getY(i));
+            Gdx.app.log("input","x: "+Gdx.input.getX(i)+" ,"+"y: "+(SCREEN_HEIGHT - Gdx.input.getY(i)));
         }
+
         return res;
-    }
+    }*/
 
     private static boolean isInCircle(int x, int y, float xCenter, float yCenter, float radius) {
         return (xCenter - x) * (xCenter - x) + (yCenter - y) * (yCenter - y) < radius * radius;
@@ -1127,7 +1158,7 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
         return (x > minX) && (x < maxX) && (y > minY) && (y < maxY);
     }
 
-    private static boolean[] pressedButtons(ArrayList<Integer> touchPos) {
+   /* private static boolean[] pressedButtons(ArrayList<Integer> touchPos) {
         int x, y;
         boolean[] res = new boolean[6];
         for (int i = 0; i < 6; i++)
@@ -1151,7 +1182,7 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
         }
 
         return res;
-    }
+    }*/
 
     private void workTurbine(int player, int turbNum, float delta) {
         int i = 0, j = 0;
@@ -1265,8 +1296,6 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
             p2_bodies[i][j].setUserData(bodyblock);
         }
     }
-
-
 
     private void BD_activateBullet(Body bullet) {
         BlockData data = (BlockData) bullet.getUserData();

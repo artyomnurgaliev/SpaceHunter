@@ -18,6 +18,11 @@ import io.spacehunters.game.Extra.ItemID.NULL
 import io.spacehunters.game.Extra.ItemID.NUMBER_OF_ITEMS
 import io.spacehunters.game.MyGdxGame
 import io.spacehunters.game.MyGdxGame.Companion.skin
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable
+import io.spacehunters.game.Extra.Sheets
 
 
 class ShipChoosingScreen(private val game: Game) : Screen {
@@ -27,7 +32,7 @@ class ShipChoosingScreen(private val game: Game) : Screen {
     var p2_ship = setPrimaryShip()
     var p1_inventory = setPrimaryInventory()
     var p2_inventory = setPrimaryInventory()
-
+    private val sheets = Sheets()
 
     fun getMe() = this
 
@@ -39,14 +44,21 @@ class ShipChoosingScreen(private val game: Game) : Screen {
             background = TextureRegionDrawable(TextureRegion(Texture("background.png")))
 
         })
+        val up = TextureRegionDrawable(TextureRegion(Texture("buttonunpressed.png")))
+        val down = TextureRegionDrawable(TextureRegion(Texture("buttonpressed.png")))
 
         val table1 = Table()
-        table1.width = (SCREEN_WIDTH/2f - BLOCK_SIZE/2)
-        table1.height = (SCREEN_HEIGHT_F - BLOCK_SIZE)
-        table1.setPosition(BLOCK_SIZE/4f, BLOCK_SIZE/2f)
+        table1.width = (halfsize - blocksize/2)
+        table1.height = (SCREEN_HEIGHT_F - blocksize)
+        table1.setPosition(blocksize/4f, blocksize/2f)
         table1.apply{
             row().let{
-                val b = TextButton("x",MyGdxGame.skin)
+                val connectToHost = ImageButton.ImageButtonStyle()
+                connectToHost.up = up
+                connectToHost.over = up
+                connectToHost.down = down
+
+                val b = ImageButton(connectToHost)
                 b.addListener(object : InputListener() {
                     override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
                         table1.remove()
@@ -56,17 +68,18 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                         return true
                     }
                 })
-                add(b).width(BLOCK_SIZE/3).right()
+                add(b).width(blocksize).height(blocksize).right()
             }
             row().let{
                 val table = Table()
-                var pane = ScrollPane(table, MyGdxGame.skin)
+                var pane = ScrollPane(table,MyGdxGame.skin)
+                pane.setFadeScrollBars(true)
                 table.apply{
-                    defaults().width(BLOCK_SIZE*4f).height(BLOCK_SIZE*3.75f).padRight(BLOCK_SIZE/2).padBottom(BLOCK_SIZE/4)
-                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
-                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
-                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
-                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)))
+                    defaults().width(blocksize*4f).height(blocksize*3.75f).padRight(blocksize/2).padBottom(blocksize/4)
+                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",1, sheets), Sheet("balcon",1,sheets)),
+                            arrayOf(Sheet("balcon",1, sheets), Sheet("balcon",1,sheets)),
+                            arrayOf(Sheet("balcon",1,sheets), Sheet("balcon",1, sheets)),
+                            arrayOf(Sheet("balcon",1,sheets), Sheet("balcon",1,sheets)))
 
                     for (i in 0 until sheetArr.size){
                         row().let{
@@ -101,33 +114,40 @@ class ShipChoosingScreen(private val game: Game) : Screen {
             }
         }
 
+
         val table2 = Table()
-        table2.width = (SCREEN_WIDTH/2f - BLOCK_SIZE/2)
-        table2.height = (SCREEN_HEIGHT_F - BLOCK_SIZE)
-        table2.setPosition(SCREEN_WIDTH-table2.width-BLOCK_SIZE/4f, BLOCK_SIZE/2f)
+        table2.width = (halfsize - blocksize/2)
+        table2.height = (SCREEN_HEIGHT_F - blocksize)
+        table2.setPosition(SCREEN_WIDTH-table2.width-blocksize/4f, blocksize/2f)
         table2.apply{
             row().let{
-                val b = TextButton("x",MyGdxGame.skin)
+                val connectToHost = ImageButton.ImageButtonStyle()
+                connectToHost.up = up
+                connectToHost.over = up
+                connectToHost.down = down
+
+                val b = ImageButton(connectToHost)
                 b.addListener(object : InputListener() {
                     override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
                         table2.remove()
                     }
 
                     override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                        b.background = TextureRegionDrawable(TextureRegion(Texture("buttonpressed.png")))
                         return true
                     }
                 })
-                add(b).width(BLOCK_SIZE/3).right()
+                add(b).width(blocksize).height(blocksize).right()
             }
             row().let{
                 val table = Table()
                 var pane = ScrollPane(table, MyGdxGame.skin)
                 table.apply{
-                    defaults().width(BLOCK_SIZE*4f).height(BLOCK_SIZE*3.75f).padRight(BLOCK_SIZE/2).padBottom(BLOCK_SIZE/4)
-                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
-                            arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
-                            arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
-                            arrayOf(Sheet("balcon",2), Sheet("balcon",2)))
+                    defaults().width(blocksize*4f).height(blocksize*3.75f).padRight(blocksize/2).padBottom(blocksize/4)
+                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",2, sheets), Sheet("balcon",2, sheets)),
+                            arrayOf(Sheet("balcon",2, sheets), Sheet("balcon",2, sheets)),
+                            arrayOf(Sheet("balcon",2, sheets), Sheet("balcon",2, sheets)),
+                            arrayOf(Sheet("balcon",2, sheets), Sheet("balcon",2, sheets)))
 
                     for (i in 0 until sheetArr.size){
                         row().let{
@@ -162,10 +182,7 @@ class ShipChoosingScreen(private val game: Game) : Screen {
             }
         }
 
-        val halfsize: Float
-        if (SCREEN_HEIGHT > SCREEN_WIDTH/2)
-                    halfsize = SCREEN_WIDTH/2.toFloat()
-                else halfsize = SCREEN_HEIGHT_F
+
 
         val blueplanet = Image(Texture("blueplanet.png"))
         blueplanet.height = halfsize - 2* BLOCK_SIZE
