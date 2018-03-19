@@ -17,12 +17,6 @@ import io.spacehunters.game.Extra.ItemID
 import io.spacehunters.game.Extra.ItemID.NULL
 import io.spacehunters.game.Extra.ItemID.NUMBER_OF_ITEMS
 import io.spacehunters.game.MyGdxGame
-import io.spacehunters.game.MyGdxGame.Companion.skin
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable
-import io.spacehunters.game.Extra.Sheets
 
 
 class ShipChoosingScreen(private val game: Game) : Screen {
@@ -32,7 +26,6 @@ class ShipChoosingScreen(private val game: Game) : Screen {
     var p2_ship = setPrimaryShip()
     var p1_inventory = setPrimaryInventory()
     var p2_inventory = setPrimaryInventory()
-    private val sheets = Sheets()
 
     fun getMe() = this
 
@@ -76,10 +69,10 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                 pane.setFadeScrollBars(true)
                 table.apply{
                     defaults().width(blocksize*4f).height(blocksize*3.75f).padRight(blocksize/2).padBottom(blocksize/4)
-                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",1, sheets), Sheet("balcon",1,sheets)),
-                            arrayOf(Sheet("balcon",1, sheets), Sheet("balcon",1,sheets)),
-                            arrayOf(Sheet("balcon",1,sheets), Sheet("balcon",1, sheets)),
-                            arrayOf(Sheet("balcon",1,sheets), Sheet("balcon",1,sheets)))
+                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
+                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
+                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
+                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)))
 
                     for (i in 0 until sheetArr.size){
                         row().let{
@@ -144,10 +137,10 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                 var pane = ScrollPane(table, MyGdxGame.skin)
                 table.apply{
                     defaults().width(blocksize*4f).height(blocksize*3.75f).padRight(blocksize/2).padBottom(blocksize/4)
-                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",2, sheets), Sheet("balcon",2, sheets)),
-                            arrayOf(Sheet("balcon",2, sheets), Sheet("balcon",2, sheets)),
-                            arrayOf(Sheet("balcon",2, sheets), Sheet("balcon",2, sheets)),
-                            arrayOf(Sheet("balcon",2, sheets), Sheet("balcon",2, sheets)))
+                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
+                            arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
+                            arrayOf(Sheet("balcon",2), Sheet("balcon",2 )),
+                            arrayOf(Sheet("balcon",2), Sheet("balcon",2 )))
 
                     for (i in 0 until sheetArr.size){
                         row().let{

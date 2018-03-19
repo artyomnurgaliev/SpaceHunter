@@ -139,9 +139,9 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
 
 
     private Body[] meteorBodies = new Body[METEORS_COUNT];
-    private Body[] obstacleBodies = new Body[3];
+    private Body[] obstacleBodies = new Body[20];
     private String[] meteorNames = new String[METEORS_COUNT];
-    private String[] obstacleNames = new String[3];
+    private String[] obstacleNames = new String[20];
     private ArrayList<Body> bullets = new ArrayList<Body>();
     private ArrayList<Body> bullets2 = new ArrayList<Body>();
     private int [][] player1ship = new int[FIELD_WIDTH][FIELD_HEIGHT];
@@ -476,15 +476,16 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
         }
     private void generateObstacles(){
        String[] obstacleNames = new String[]{"obstacle1","obstacle2","obstacle3","boxobstacle","boxobstacle2"};
-       for (int i=0;i<obstacleNames.length;i++){
-           String name  = obstacleNames[i];
-           this.obstacleNames[i] = name;
+       for (int i=0;i<obstacleBodies.length;i++){
            int scale = 4;
            BlockData block = new BlockData(-scale-100);
            int x=0,y=0;
+           String name = "";
+           if (i<3){
+               name  = obstacleNames[i];}
            if (i == 1){
                y=(int)(HEIGHT_IN_UNITS*0.85);
-               x = (int)(HEIGHT_IN_UNITS*0.55);
+               x = (int)(WIDTH_IN_UNITS*0.55);
            }
            if (i == 2){
                y=0;
@@ -494,6 +495,35 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                y=(int)(HEIGHT_IN_UNITS*0.3);
                x = (int)((1 -0.06)*WIDTH_IN_UNITS);
            }
+           int boxwidth = (int)(WIDTH_IN_UNITS*0.0562);
+           int boxheight = (int)(HEIGHT_IN_UNITS*0.065);
+           if ((i >=3)&&(i<7)||(i>7)&&(i<=9)){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS*0.45);
+               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(i-2));
+           }
+           if (i==7){
+               name = "boxobstacle2";
+               y = (int)(HEIGHT_IN_UNITS*0.455);
+               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(i-2));
+           }
+           if ((i>9)&&(i<14)){
+               name ="boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS*0.455+boxheight*(i-9));
+               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(7-2));
+           }
+           if ((i>13)&&(i<18)){
+               name ="boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS*0.455-boxheight*(i-13));
+               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(7-2));
+           }
+           if (i>17){
+               name ="boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS*0.455+boxheight*(i-17));
+               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(3-2));
+           }
+
+           this.obstacleNames[i] = name;
            obstacleBodies[i] = createBodyWH(name,x,y,0,scale);
            obstacleBodies[i].setBullet(true);
            obstacleBodies[i].setUserData(block);

@@ -1,7 +1,9 @@
 package io.spacehunters.game.Bodies
 
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -9,10 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import io.spacehunters.game.Extra.AssemblingScreenCoords
 import io.spacehunters.game.Extra.AssemblingScreenCoords.blocksize
 import io.spacehunters.game.Extra.ItemID
-import io.spacehunters.game.Extra.Sheets
 import io.spacehunters.game.MyGdxGame
 
-class Sheet(name : String, player : Int, sheets : Sheets): Table(){
+class Sheet(name : String, player : Int): Table(){
     var ship = Array(AssemblingScreenCoords.FIELD_WIDTH) { IntArray(AssemblingScreenCoords.FIELD_HEIGHT) }
     var inventory = IntArray(ItemID.NUMBER_OF_ITEMS)
     private var prefSize = blocksize/2
@@ -20,21 +21,22 @@ class Sheet(name : String, player : Int, sheets : Sheets): Table(){
     private var player : Int = 0
     private var backuntouched : TextureRegionDrawable
     private var backtouched : TextureRegionDrawable
-    private var sheets : Sheets
     init{
-        this.sheets = sheets
         ship = getShip(name)
         val a = Math.random()*3
         var b = 0
         if (a<1) b = 1
         if ((a>=1)&&(a<2)) b = 2
         if ((a>=2)&&(a<=3)) b = 3
-        backuntouched =  getSheet(b)
-        backtouched = getSheet(b*10+player)
+        backuntouched =  TextureRegionDrawable(TextureRegion(Texture("sheet${b}.png")))
+        backtouched = TextureRegionDrawable(TextureRegion(Texture("sheet${b}${player}.png")))
         inventory = getInventory(name)
         SheetName = name
         this.player = player
         val stageLayout = Table()
+        val actor = Actor()
+        actor.setBounds(0f,0f, prefSize*8, prefSize*7.5f)
+        addActor(actor)
         background = backuntouched
         add(stageLayout.apply {
             for (j in 0 until AssemblingScreenCoords.FIELD_HEIGHT){
@@ -65,21 +67,7 @@ class Sheet(name : String, player : Int, sheets : Sheets): Table(){
         }
 
     }
-    private fun getSheet(b : Int):TextureRegionDrawable {
-        return when (b){
-            1 -> sheets.sheet1
-            2 -> sheets.sheet2
-            3 -> sheets.sheet3
-            11 -> sheets.sheet11
-            12 -> sheets.sheet12
-            21 -> sheets.sheet21
-            22 -> sheets.sheet22
-            31 -> sheets.sheet31
-            32 -> sheets.sheet32
-            else -> sheets.sheet1
-        }
 
-    }
 
     private fun getBWidth(i: Int): Float {
         return when (i%10) {
