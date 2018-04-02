@@ -19,10 +19,12 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -413,6 +415,9 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
 
 
         WeldJointDef jointDef = new WeldJointDef();
+        //DistanceJointDef defJoint = new DistanceJointDef();
+        //defJoint.length =7 ;
+
         jointDef.frequencyHz = 0f;
         jointDef.dampingRatio = 0f;
 
@@ -422,11 +427,15 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                     if (p1_ship[i][j] != NULL && p1_ship[i - 1][j] != NULL)
                         if (canBeJoined(p1_ship[i][j], LEFT) && canBeJoined(p1_ship[i - 1][j], RIGHT)) {
                             jointDef.initialize(p1_bodies[i][j], p1_bodies[i - 1][j], new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)));
+                            //defJoint.initialize(p1_bodies[i][j], p1_bodies[i - 1][j], new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)),new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)));
                             world.createJoint(jointDef);
+                           // world.createJoint(defJoint);
                         }
                     if (p2_ship[i][j] != NULL && p2_ship[i - 1][j] != NULL)
                         if (canBeJoined(p2_ship[i][j], LEFT) && canBeJoined(p2_ship[i - 1][j], RIGHT)) {
                             jointDef.initialize(p2_bodies[i][j], p2_bodies[i - 1][j], new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)));
+                         //   defJoint.initialize(p2_bodies[i][j], p2_bodies[i - 1][j], new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)),new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)));
+                         //   world.createJoint(defJoint);
                             world.createJoint(jointDef);
                         }
                 }
@@ -434,11 +443,16 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                     if (p1_ship[i][j] != NULL && p1_ship[i][j - 1] != NULL)
                         if (canBeJoined(p1_ship[i][j], UP) && canBeJoined(p1_ship[i][j - 1], DOWN)) {
                             jointDef.initialize(p1_bodies[i][j], p1_bodies[i][j - 1], new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)));
+                 //           defJoint.initialize(p1_bodies[i][j], p1_bodies[i][j - 1], new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)),new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)));
+
                             world.createJoint(jointDef);
+//                            world.createJoint(defJoint);
                         }
                     if (p2_ship[i][j] != NULL && p2_ship[i][j - 1] != NULL)
                         if (canBeJoined(p2_ship[i][j], UP) && canBeJoined(p2_ship[i][j - 1], DOWN)) {
                             jointDef.initialize(p2_bodies[i][j], p2_bodies[i][j - 1], new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)));
+  //                          defJoint.initialize(p2_bodies[i][j], p2_bodies[i][j - 1], new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)),new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)));
+    //                        world.createJoint(defJoint);
                             world.createJoint(jointDef);
                         }
                 }
@@ -495,32 +509,32 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                y=(int)(HEIGHT_IN_UNITS*0.3);
                x = (int)((1 -0.06)*WIDTH_IN_UNITS);
            }
-           int boxwidth = (int)(WIDTH_IN_UNITS*0.0562);
-           int boxheight = (int)(HEIGHT_IN_UNITS*0.065);
+
+           int boxSize = (int)(HEIGHT_IN_UNITS*0.08);
            if ((i >=3)&&(i<7)||(i>7)&&(i<=9)){
                name = "boxobstacle";
                y = (int)(HEIGHT_IN_UNITS*0.45);
-               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(i-2));
+               x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(i-2));
            }
            if (i==7){
                name = "boxobstacle2";
-               y = (int)(HEIGHT_IN_UNITS*0.455);
-               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(i-2));
+               y = (int)(HEIGHT_IN_UNITS*0.45);
+               x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(i-2));
            }
            if ((i>9)&&(i<14)){
                name ="boxobstacle";
-               y = (int)(HEIGHT_IN_UNITS*0.455+boxheight*(i-9));
-               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(7-2));
+               y = (int)(HEIGHT_IN_UNITS*0.45+boxSize*(i-9));
+               x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(7-2));
            }
            if ((i>13)&&(i<18)){
                name ="boxobstacle";
-               y = (int)(HEIGHT_IN_UNITS*0.455-boxheight*(i-13));
-               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(7-2));
+               y = (int)(HEIGHT_IN_UNITS*0.45-boxSize*(i-13));
+               x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(7-2));
            }
            if (i>17){
                name ="boxobstacle";
-               y = (int)(HEIGHT_IN_UNITS*0.455+boxheight*(i-17));
-               x = (int)(WIDTH_IN_UNITS*0.2 +boxwidth*(3-2));
+               y = (int)(HEIGHT_IN_UNITS*0.45+boxSize*(i-17));
+               x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(3-2));
            }
 
            this.obstacleNames[i] = name;
