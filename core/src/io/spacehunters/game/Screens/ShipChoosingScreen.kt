@@ -34,7 +34,7 @@ class ShipChoosingScreen(private val game: Game) : Screen {
 
         stage.addActor(container.apply {
             setFillParent(true)
-            background = TextureRegionDrawable(TextureRegion(Texture("background.png")))
+            background = TextureRegionDrawable(TextureRegion(Texture("background1.png")))
 
         })
         val up = TextureRegionDrawable(TextureRegion(Texture("buttonunpressed.png")))
@@ -69,9 +69,9 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                 pane.setFadeScrollBars(true)
                 table.apply{
                     defaults().width(blocksize*4f).height(blocksize*3.75f).padRight(blocksize/2).padBottom(blocksize/4)
-                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
-                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
-                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)),
+                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",1), Sheet("dron",1)),
+                            arrayOf(Sheet("vampire",1), Sheet("yasik",1)),
+                            arrayOf(Sheet("FH and ESB",1), Sheet("balcon",1)),
                             arrayOf(Sheet("balcon",1), Sheet("balcon",1)))
 
                     for (i in 0 until sheetArr.size){
@@ -126,7 +126,6 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                     }
 
                     override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
-                        b.background = TextureRegionDrawable(TextureRegion(Texture("buttonpressed.png")))
                         return true
                     }
                 })
@@ -137,9 +136,9 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                 var pane = ScrollPane(table, MyGdxGame.skin)
                 table.apply{
                     defaults().width(blocksize*4f).height(blocksize*3.75f).padRight(blocksize/2).padBottom(blocksize/4)
-                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
-                            arrayOf(Sheet("balcon",2), Sheet("balcon",2)),
-                            arrayOf(Sheet("balcon",2), Sheet("balcon",2 )),
+                    val sheetArr = arrayOf(arrayOf(Sheet("balcon",2), Sheet("dron",2)),
+                            arrayOf(Sheet("vampire",2), Sheet("yasik",2)),
+                            arrayOf(Sheet("FH and ESB",2), Sheet("balcon",2 )),
                             arrayOf(Sheet("balcon",2), Sheet("balcon",2 )))
 
                     for (i in 0 until sheetArr.size){
@@ -244,12 +243,12 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                 game.screen = GameScreen(getMe(), game,p1_ship, p2_ship)
 
                 for ( i in 0 until p1_inventory.size){
-                    System.out.print("${p1_inventory[i]} ")
+                    System.out.print("${p1_inventory[i]},")
                 }
                 for ( i in 0 until p1_ship.size){
                     System.out.println()
                     for ( j in 0 until p1_ship[0].size){
-                        System.out.print("${p1_ship[i][j]} ")
+                        System.out.print("${p1_ship[i][j]},")
                     }
                 }
 

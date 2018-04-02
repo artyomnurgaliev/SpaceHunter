@@ -26,28 +26,28 @@ boxobstacle2
   index: -1
 bullet
   rotate: false
-  xy: 2519, 916
+  xy: 1, 3556
   size: 117, 59
   orig: 117, 59
   offset: 0, 0
   index: -1
 bullet0
   rotate: true
-  xy: 1216, 2746
+  xy: 3030, 2099
   size: 117, 59
   orig: 117, 59
   offset: 0, 0
   index: -1
 bullet2
-  rotate: false
-  xy: 1, 3556
+  rotate: true
+  xy: 2555, 2986
   size: 117, 59
   orig: 117, 59
   offset: 0, 0
   index: -1
 bullet20
   rotate: true
-  xy: 3030, 2099
+  xy: 2473, 3333
   size: 117, 59
   orig: 117, 59
   offset: 0, 0
@@ -73,11 +73,53 @@ engine
   orig: 360, 353
   offset: 0, 0
   index: -1
+explosion
+  rotate: false
+  xy: 3854, 1368
+  size: 110, 123
+  orig: 110, 123
+  offset: 0, 0
+  index: -1
+explosion2
+  rotate: false
+  xy: 1103, 3360
+  size: 111, 111
+  orig: 111, 111
+  offset: 0, 0
+  index: -1
+fire1
+  rotate: false
+  xy: 1988, 2902
+  size: 104, 65
+  orig: 104, 65
+  offset: 0, 0
+  index: -1
+fire2
+  rotate: false
+  xy: 1103, 3473
+  size: 85, 64
+  orig: 85, 64
+  offset: 0, 0
+  index: -1
 gray
   rotate: false
   xy: 1886, 3333
   size: 300, 300
   orig: 300, 300
+  offset: 0, 0
+  index: -1
+gunfire1
+  rotate: false
+  xy: 2519, 916
+  size: 110, 70
+  orig: 110, 70
+  offset: 0, 0
+  index: -1
+gunfire2
+  rotate: false
+  xy: 1216, 2746
+  size: 114, 89
+  orig: 114, 89
   offset: 0, 0
   index: -1
 gunone

@@ -158,7 +158,7 @@ class Menu internal constructor (private val game : Game, private val shipChoosi
         }
         print("SHIP DATA: ")
         for (i in 0 until res.size)
-            print(res[i] + " ")
+            print(res[i])
         println()
         return res
     }

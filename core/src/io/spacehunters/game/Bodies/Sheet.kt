@@ -1,5 +1,6 @@
 package io.spacehunters.game.Bodies
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import io.spacehunters.game.Extra.AssemblingScreenCoords
 import io.spacehunters.game.Extra.AssemblingScreenCoords.blocksize
+import io.spacehunters.game.Extra.FontID
 import io.spacehunters.game.Extra.ItemID
 import io.spacehunters.game.MyGdxGame
 
@@ -47,7 +49,7 @@ class Sheet(name : String, player : Int): Table(){
                             img.width = getBWidth(ship[i][j])
                             img.height = getBHeight(ship[i][j])
                             val imgOX = if (ship[i][j]%10 == ItemID.TURBINE) img.width - prefSize/2 else prefSize/2
-                            val imgOY = prefSize/2
+                            val imgOY = img.height/2
                             img.setOrigin(imgOX, imgOY)
                             img.setPosition(i*prefSize+prefSize/2 - imgOX, j*prefSize+prefSize/2 - imgOY)
                             var id = ship[i][j]
@@ -63,7 +65,9 @@ class Sheet(name : String, player : Int): Table(){
             }
         }).height(prefSize*6f).width(prefSize*8f)
         row().let{
-            add(Label(SheetName, MyGdxGame.skin, "big-black")).fillY()
+            val sheetFont = GameFont(FontID.JURA_DEMIBOLD, 30, Color.BROWN)
+            add(Label(SheetName, sheetFont.getLS())).height(prefSize*1.3f)
+
         }
 
     }
@@ -110,7 +114,7 @@ class Sheet(name : String, player : Int): Table(){
 
     private fun getShip(name: String):Array<IntArray>{
         return when (name){
-            "balcon" -> arrayOf(intArrayOf(0,1000,1000,1000,1000,1000),
+            "balcon" -> arrayOf(intArrayOf(1000,1000,1000,1000,1000,1000),
                     intArrayOf(1000,1000,1000,1000,1000,1000),
                     intArrayOf(1000,1000,3,2,3,1000),
                     intArrayOf(1000,1000,2,8,2,1000),
@@ -118,13 +122,51 @@ class Sheet(name : String, player : Int): Table(){
                     intArrayOf(1000,1000,1000,1000,1000,1000),
                     intArrayOf(1000,1000,1000,1000,1000,1000),
                     intArrayOf(1000,1000,1000,1000,1000,1000))
+            "dron" -> arrayOf(intArrayOf(0,1,0,0,4,1000),
+                    intArrayOf(1,8,1,0,4,1000),
+                    intArrayOf(0,1,0,5,1000,1000),
+                    intArrayOf(0,0,5,1000,1000,1000),
+                    intArrayOf(4,4,1000,3,2,3),
+                    intArrayOf(1000,1000,1000,2,6,2),
+                    intArrayOf(1000,1000,1000,7,1000,7),
+                    intArrayOf(1000,1000,1000,1000,1000,1000))
+            "vampire" -> arrayOf(intArrayOf(1000,1000,1000,1000,1000,1000),
+                    intArrayOf(1000,1000,1000,1000,1000,1000),
+                    intArrayOf(1000,3,2,3,1000,1000),
+                    intArrayOf(24,2,8,2,14,1000),
+                    intArrayOf(7,0,6,0,7,1000),
+                    intArrayOf(1000,0,1000,0,1000,1000),
+                    intArrayOf(1000,35,1000,5,1000,1000),
+                    intArrayOf(1000,1000,1000,1000,1000,1000))
+            "yasik" -> arrayOf(intArrayOf(1000,1000,1000,1000,1000,1000),
+                    intArrayOf(1000,1000,1000,1000,1000,1000),
+                    intArrayOf(1000,2,15,1000,1000,1000),
+                    intArrayOf(1000,13,1,17,1000,1000),
+                    intArrayOf(1000,2,8,1,16,1000),
+                    intArrayOf(1000,13,1,17,1000,1000),
+                    intArrayOf(1000,2,5,1000,1000,1000),
+                    intArrayOf(1000,1000,1000,1000,1000,1000))
+            "FH and ESB"  -> arrayOf(intArrayOf(0,0,1000,1000,1000,1000),
+            intArrayOf(0,0,35,3,3,5),
+            intArrayOf(0,0,1000,2,2,1000),
+            intArrayOf(0,0,1000,1,1,1000),
+            intArrayOf(8,4,1000,1,1,1000),
+            intArrayOf(7,1000,1000,6,2,1000),
+            intArrayOf(1000,1000,1000,1000,7,1000),
+            intArrayOf(1000,1000,1000,1000,1000,1000))
+
+
             else -> arrayOf(IntArray(0))
         }
     }
 
     private fun getInventory(name: String):IntArray{
         return when (name){
-            "balcon" -> intArrayOf(7,4,0,0,4,2,0,2,0)
+            "balcon" -> intArrayOf(8,4,0,0,4,2,0,2,0)
+            "dron" -> intArrayOf(0,0,0,0,0,0,0,0,0)
+            "vampire" -> intArrayOf(4,4,0,0,2,0,0,0,0)
+            "yasik" -> intArrayOf(8,1,0,0,4,0,0,0,0)
+            "FH and ESB" -> intArrayOf(0,0,0,0,3,0,0,0,0)
             else -> intArrayOf()
         }
     }

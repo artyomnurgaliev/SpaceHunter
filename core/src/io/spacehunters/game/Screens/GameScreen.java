@@ -58,7 +58,7 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
     private static final float STEP_TIME = 1f / 60f;                                // Базовый интервал времени между кадрами (в сек)
     private static final int VELOCITY_ITERATIONS = 6;                               // ???
     private static final int POSITION_ITERATIONS = 2;                               // ???
-    private static final float GUNSHOT_DELTA = 0.2f;                                // Интервал времени между выстрелами пушек при стрельбе очередью (в сек)
+    private static final float GUNSHOT_DELTA = 1f;                                // Интервал времени между выстрелами пушек при стрельбе очередью (в сек)
     private static final float MAX_RENDER_DELTA = 0.15f;                            // Максимальный интервал внутриигрового времени (в сек). То есть, если по каким-то причинам кадры в игре меняются через время, бОльшее, чем 0.15 сек, то игра считает, что прошло ровно 0.15 сек
     private static final float MAX_BULLET_LIFETIME = 7f;                            // Время жизни пули (в сек)
     private static final float MAX_GAMEPLAY_TIME = 180f;                            // Максимальное время игры (в сек)
@@ -703,7 +703,7 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                 workTurbine(1, 2, delta);
 
         if (pressedButtons[BTN_P1_GUN]) {
-            if (p1_gunTimer >= 0.2f) {
+            if (p1_gunTimer >= GUNSHOT_DELTA) {
                 p1_gunTimer = 0f;
                 if (p1_steelGun_I != -1)
                     gunShot(1, 1);
@@ -723,7 +723,7 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                 workTurbine(2, 2, delta);
 
         if (pressedButtons[BTN_P2_GUN]) {
-            if (p2_gunTimer >= 0.2f) {
+            if (p2_gunTimer >= GUNSHOT_DELTA) {
                 p2_gunTimer = 0f;
                 if (p2_steelGun_I != -1)
                     gunShot(2, 1);
