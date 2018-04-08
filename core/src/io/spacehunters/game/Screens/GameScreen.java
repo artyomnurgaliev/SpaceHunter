@@ -415,8 +415,8 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
 
 
         WeldJointDef jointDef = new WeldJointDef();
-        //DistanceJointDef defJoint = new DistanceJointDef();
-        //defJoint.length =7 ;
+        DistanceJointDef defJoint = new DistanceJointDef();
+
 
         jointDef.frequencyHz = 0f;
         jointDef.dampingRatio = 0f;
@@ -456,6 +456,7 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                             world.createJoint(jointDef);
                         }
                 }
+
             }
 
     }
@@ -511,31 +512,87 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
            }
 
            int boxSize = (int)(HEIGHT_IN_UNITS*0.08);
-           if ((i >=3)&&(i<7)||(i>7)&&(i<=9)){
+           if (i==3){
                name = "boxobstacle";
-               y = (int)(HEIGHT_IN_UNITS*0.45);
-               x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(i-2));
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2);
+           }
+           if (i==4){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 - boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2);
+           }
+           if (i==5){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2+boxSize);
+           }
+           if (i==6){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2-boxSize);
            }
            if (i==7){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 + boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2);
+           }
+
+
+           if (i == 8){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 - 3*boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2 + 4*boxSize);
+           }
+           if (i == 9){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 - 4*boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2 + 3*boxSize);
+           }
+
+
+           if (i == 10){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 - 3*boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2 - 4*boxSize);
+           }
+           if (i == 11){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 - 4*boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2 - 3*boxSize);
+           }
+
+
+           if (i == 12){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 + 3*boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2 + 4*boxSize);
+           }
+           if (i == 13){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 + 4*boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2 + 3*boxSize);
+           }
+
+
+           if (i == 14){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 + 3*boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2 - 4*boxSize);
+           }
+           if (i == 15){
+               name = "boxobstacle";
+               y = (int)(HEIGHT_IN_UNITS/2 - boxSize/2 + 4*boxSize);
+               x = (int)(WIDTH_IN_UNITS/2 - boxSize/2 - 3*boxSize);
+           }
+
+
+           if (i>15){
                name = "boxobstacle2";
-               y = (int)(HEIGHT_IN_UNITS*0.45);
+               y = (int)(HEIGHT_IN_UNITS*2);
                x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(i-2));
            }
-           if ((i>9)&&(i<14)){
-               name ="boxobstacle";
-               y = (int)(HEIGHT_IN_UNITS*0.45+boxSize*(i-9));
-               x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(7-2));
-           }
-           if ((i>13)&&(i<18)){
-               name ="boxobstacle";
-               y = (int)(HEIGHT_IN_UNITS*0.45-boxSize*(i-13));
-               x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(7-2));
-           }
-           if (i>17){
-               name ="boxobstacle";
-               y = (int)(HEIGHT_IN_UNITS*0.45+boxSize*(i-17));
-               x = (int)(WIDTH_IN_UNITS*0.4 + boxSize *(3-2));
-           }
+
 
            this.obstacleNames[i] = name;
            obstacleBodies[i] = createBodyWH(name,x,y,0,scale);

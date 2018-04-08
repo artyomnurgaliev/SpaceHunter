@@ -27,13 +27,13 @@ public interface ItemID {
     // Здесь хранятся максимальные ХП для каждого из блоков
 
     float HP_WOOD_BLOCK = 2f;
-    float HP_STEEL_BLOCK = 4f;
-    float HP_ENGINE = 3f;
-    float HP_TURBINE = 3f;
-    float HP_HALF_WOOD_BLOCK = 1f;
-    float HP_HALF_STEEL_BLOCK = 2f;
-    float HP_STEEL_GUN = 5f;
-    float HP_WOOD_GUN = 3f;
+    float HP_STEEL_BLOCK = 3f;
+    float HP_ENGINE = 4f;
+    float HP_TURBINE = 4f;
+    float HP_HALF_WOOD_BLOCK = 2f;
+    float HP_HALF_STEEL_BLOCK = 3f;
+    float HP_STEEL_GUN = 10f;
+    float HP_WOOD_GUN = 8f;
     float HP_EYE = 1f;
     float HP_EYE2 = 1f;
 

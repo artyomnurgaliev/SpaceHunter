@@ -3,12 +3,14 @@ package io.spacehunters.game.Screens
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.*
 import com.badlogic.gdx.scenes.scene2d.ui.*
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import io.spacehunters.game.Bodies.Sheet
 import io.spacehunters.game.Extra.AssemblingScreenCoords
@@ -232,7 +234,12 @@ class ShipChoosingScreen(private val game: Game) : Screen {
 
         /*var sheet = Sheet("balcon",1)
         container.add(sheet).fill().width(BLOCK_SIZE*8).height(BLOCK_SIZE*6.5f)*/
-
+        val title = Label("Create your ship and press 'Start'", MyGdxGame.skin, "big-black")
+        title.setAlignment(Align.center)
+        title.style.fontColor = Color.WHITE
+        title.y = (SCREEN_HEIGHT / 5*4).toFloat()
+        title.width = SCREEN_WIDTH.toFloat()
+        container.addActor(title)
         val playButton = TextButton("Start!", MyGdxGame.skin)
 
         playButton.width = (SCREEN_WIDTH / 2).toFloat()

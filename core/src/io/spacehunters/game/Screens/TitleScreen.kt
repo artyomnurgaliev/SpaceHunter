@@ -3,6 +3,7 @@ package io.spacehunters.game.Screens
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
@@ -32,13 +33,14 @@ class TitleScreen(private val game: Game) : Screen {
 
             val title = Label("Space Hunters", MyGdxGame.skin, "big-black")
             title.setAlignment(Align.center)
-            title.y = (SCREEN_HEIGHT * 2 / 3).toFloat()
+            title.style.fontColor = Color.WHITE
+            title.y = (SCREEN_HEIGHT / 2).toFloat()
             title.width = SCREEN_WIDTH.toFloat()
             addActor(title)
 
             val playButton = TextButton("Start!", MyGdxGame.skin)
             playButton.width = (SCREEN_WIDTH / 2).toFloat()
-            playButton.setPosition(SCREEN_WIDTH / 2 - playButton.width / 2, SCREEN_HEIGHT / 2 - playButton.height / 2)
+            playButton.setPosition(SCREEN_WIDTH / 2 - playButton.width / 2, SCREEN_HEIGHT/3 - playButton.height / 2)
             playButton.addListener(object : InputListener() {
 
                 override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {

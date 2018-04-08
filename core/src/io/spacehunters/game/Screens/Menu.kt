@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import io.spacehunters.game.Bodies.GameFont
 import io.spacehunters.game.Bodies.MoveableImage
@@ -49,6 +50,12 @@ class Menu internal constructor (private val game : Game, private val shipChoosi
 
 
     init {
+        val title = Label("You must use this block to create ship", MyGdxGame.skin, "big-black")
+        title.setAlignment(Align.center)
+        title.style.fontColor = Color.WHITE
+        title.y = (SCREEN_HEIGHT / 5*4).toFloat()
+        title.width = SCREEN_WIDTH.toFloat()
+        stage.addActor(title)
 
         val button = TextButton("Ship is created!", MyGdxGame.skin)
         button.setPosition(AssemblingScreenCoords.SCREEN_WIDTH - button.width * 3 / 2, AssemblingScreenCoords.BLOCK_SIZE / 2)
