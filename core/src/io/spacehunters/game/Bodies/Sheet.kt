@@ -122,6 +122,14 @@ class Sheet(name : String, player : Int): Table(){
                     intArrayOf(1000,1000,1000,1000,1000,1000),
                     intArrayOf(1000,1000,1000,1000,1000,1000),
                     intArrayOf(1000,1000,1000,1000,1000,1000))
+            "balcony" -> arrayOf(intArrayOf(1000,1000,1000,1000,1000,1000),
+                    intArrayOf(1000,1000,1000,1000,1000,1000),
+                    intArrayOf(1000,1000,3,2,3,1000),
+                    intArrayOf(1000,1000,2,8,2,1000),
+                    intArrayOf(1000,1000,7,6,7,1000),
+                    intArrayOf(1000,1000,1000,1000,1000,1000),
+                    intArrayOf(1000,1000,1000,1000,1000,1000),
+                    intArrayOf(1000,1000,1000,1000,1000,1000))
             "dron" -> arrayOf(intArrayOf(0,1,0,0,4,1000),
                     intArrayOf(1,8,1,0,4,1000),
                     intArrayOf(0,1,0,5,1000,1000),
@@ -163,6 +171,7 @@ class Sheet(name : String, player : Int): Table(){
     private fun getInventory(name: String):IntArray{
         return when (name){
             "balcon" -> intArrayOf(8,4,0,0,4,2,0,2,0)
+            "balcony" -> intArrayOf(8,4,0,0,4,2,0,0,0)
             "dron" -> intArrayOf(0,0,0,0,0,0,0,0,0)
             "vampire" -> intArrayOf(4,4,0,0,2,0,0,0,0)
             "yasik" -> intArrayOf(8,1,0,0,4,0,0,0,0)

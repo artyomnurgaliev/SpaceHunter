@@ -73,8 +73,7 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                     defaults().width(blocksize*4f).height(blocksize*3.75f).padRight(blocksize/2).padBottom(blocksize/4)
                     val sheetArr = arrayOf(arrayOf(Sheet("balcon",1), Sheet("dron",1)),
                             arrayOf(Sheet("vampire",1), Sheet("yasik",1)),
-                            arrayOf(Sheet("FH and ESB",1), Sheet("balcon",1)),
-                            arrayOf(Sheet("balcon",1), Sheet("balcon",1)))
+                            arrayOf(Sheet("FH and ESB",1), Sheet("balcony",1)))
 
                     for (i in 0 until sheetArr.size){
                         row().let{
@@ -140,8 +139,7 @@ class ShipChoosingScreen(private val game: Game) : Screen {
                     defaults().width(blocksize*4f).height(blocksize*3.75f).padRight(blocksize/2).padBottom(blocksize/4)
                     val sheetArr = arrayOf(arrayOf(Sheet("balcon",2), Sheet("dron",2)),
                             arrayOf(Sheet("vampire",2), Sheet("yasik",2)),
-                            arrayOf(Sheet("FH and ESB",2), Sheet("balcon",2 )),
-                            arrayOf(Sheet("balcon",2), Sheet("balcon",2 )))
+                            arrayOf(Sheet("FH and ESB",2), Sheet("balcony",2 )))
 
                     for (i in 0 until sheetArr.size){
                         row().let{

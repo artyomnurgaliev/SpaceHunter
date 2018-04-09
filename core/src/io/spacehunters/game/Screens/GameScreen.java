@@ -97,8 +97,8 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
     private float gameplayTimer = 0f;                                                                                       // Время с начала запуска игры (в сек)
 
     private Body[] gameFieldBounds = new Body[4];                                                                           // Границы карты
-    private int[][] SPAWN_CORNERS = {{7, 7*FIELD_HEIGHT},
-            {(int) (WIDTH_IN_UNITS/SCALE*0.02f) - (FIELD_WIDTH+1)*7, (int) (HEIGHT_IN_UNITS/SCALE*0.02f)- 7*2}};            // Массив 2х2, хранит координаты спавна у первого корабля ([0][]) и второго корабля ([1][])
+    private int[][] SPAWN_CORNERS = {{(int)(WIDTH_IN_UNITS/SCALE/8*0.02f),(int)(HEIGHT_IN_UNITS/SCALE/2*0.02f) },
+            {(int) (WIDTH_IN_UNITS/SCALE*0.02f)*7/8 - (FIELD_WIDTH+1)*7, (int) (HEIGHT_IN_UNITS/SCALE/2*0.02f)+ 7*2}};            // Массив 2х2, хранит координаты спавна у первого корабля ([0][]) и второго корабля ([1][])
 
     private Body[][] p1_bodies = new Body[FIELD_WIDTH][FIELD_HEIGHT];
     private Body[][] p2_bodies = new Body[FIELD_WIDTH][FIELD_HEIGHT];
@@ -415,9 +415,6 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
 
 
         WeldJointDef jointDef = new WeldJointDef();
-        DistanceJointDef defJoint = new DistanceJointDef();
-
-
         jointDef.frequencyHz = 0f;
         jointDef.dampingRatio = 0f;
 
@@ -426,37 +423,27 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                 if (i != 0) {
                     if (p1_ship[i][j] != NULL && p1_ship[i - 1][j] != NULL)
                         if (canBeJoined(p1_ship[i][j], LEFT) && canBeJoined(p1_ship[i - 1][j], RIGHT)) {
-                            jointDef.initialize(p1_bodies[i][j], p1_bodies[i - 1][j], new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)));
-                            //defJoint.initialize(p1_bodies[i][j], p1_bodies[i - 1][j], new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)),new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)));
+                            jointDef.initialize(p1_bodies[i][j], p1_bodies[i - 1][j], new Vector2((float) ((SPAWN_CORNERS[0][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[0][1] - 10.5) * SCALE / 0.02)));
                             world.createJoint(jointDef);
-                           // world.createJoint(defJoint);
                         }
                     if (p2_ship[i][j] != NULL && p2_ship[i - 1][j] != NULL)
                         if (canBeJoined(p2_ship[i][j], LEFT) && canBeJoined(p2_ship[i - 1][j], RIGHT)) {
                             jointDef.initialize(p2_bodies[i][j], p2_bodies[i - 1][j], new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)));
-                         //   defJoint.initialize(p2_bodies[i][j], p2_bodies[i - 1][j], new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)),new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)));
-                         //   world.createJoint(defJoint);
                             world.createJoint(jointDef);
                         }
                 }
                 if (j != 0) {
                     if (p1_ship[i][j] != NULL && p1_ship[i][j - 1] != NULL)
                         if (canBeJoined(p1_ship[i][j], UP) && canBeJoined(p1_ship[i][j - 1], DOWN)) {
-                            jointDef.initialize(p1_bodies[i][j], p1_bodies[i][j - 1], new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)));
-                 //           defJoint.initialize(p1_bodies[i][j], p1_bodies[i][j - 1], new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)),new Vector2((float) ((15 + 17.5) * SCALE / 0.02), (float) ((50 - 10.5) * SCALE / 0.02)));
-
+                            jointDef.initialize(p1_bodies[i][j], p1_bodies[i][j - 1], new Vector2((float) ((SPAWN_CORNERS[0][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[0][1] - 10.5) * SCALE / 0.02)));
                             world.createJoint(jointDef);
-//                            world.createJoint(defJoint);
                         }
                     if (p2_ship[i][j] != NULL && p2_ship[i][j - 1] != NULL)
                         if (canBeJoined(p2_ship[i][j], UP) && canBeJoined(p2_ship[i][j - 1], DOWN)) {
                             jointDef.initialize(p2_bodies[i][j], p2_bodies[i][j - 1], new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)));
-  //                          defJoint.initialize(p2_bodies[i][j], p2_bodies[i][j - 1], new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)),new Vector2((float) ((SPAWN_CORNERS[1][0] + 17.5) * SCALE / 0.02), (float) ((SPAWN_CORNERS[1][1] - 10.5) * SCALE / 0.02)));
-    //                        world.createJoint(defJoint);
                             world.createJoint(jointDef);
                         }
                 }
-
             }
 
     }
@@ -914,7 +901,6 @@ public class GameScreen implements Screen, InputProcessor, ItemID, AssemblingScr
                 drawSprite("pause", PAUSE_BTN_DELTA_X, PAUSE_BTN_DELTA_Y, PAUSE_BTN_SIZE, PAUSE_BTN_SIZE, 0);
                 break;
         }
-
         //debugRenderer.render(world, camera.combined);
         batch.end();
 
